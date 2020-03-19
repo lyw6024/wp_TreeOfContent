@@ -2,7 +2,7 @@
 
 Wordpress 生成单篇文章的插件（解析post中的h2与h3，并生成在正文之前，点击链接可以索引到相应位置）
 
-![image-20200319202118386](C:\Users\malic\AppData\Roaming\Typora\typora-user-images\image-20200319202118386.png)
+![image-20200319202118386](src\image-20200319202118386.png)
 
 ## 用法
 
