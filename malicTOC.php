@@ -19,14 +19,6 @@ class malicTOC
     {
         add_shortcode("malicTOC","malicTOC::generate_malicTOC");
         add_action("wp_footer","malicTOC::set_malicTOC");
-        add_filter("the_content","malicTOC::getContent");
-    }
-
-    public static function getContent($content)
-    {
-        self::$fullContent = preg_replace("/<h2>(.*?)<\/h2>/","<h2 id='h2_$1'>$1</h2>",$content);
-        self::$fullContent = preg_replace("/<h3>(.*?)<\/h3>/","<h3 id='h3_$1'>$1</h3>",self::$fullContent);
-        return self::$fullContent;
     }
 
     public static function generate_malicTOC()
@@ -57,25 +49,7 @@ div.malicTOC
         if(self::$add_malicTOC==true)
         {
             echo self::set_style();
-            $h23arr = array();
-            preg_match_all("/<h(2|3) (.*?)>.*?<\/h(2|3)>/",self::$fullContent,$pat_arr);
-            $lastH2="root";
-            foreach($pat_arr[0] as $x)
-            {
-                if(preg_match("/^<h2/",$x))
-                {   
-                    $lastH2 = preg_replace("/<(.*?)>(.*?)<\/.*?>/","$2",$x);
-                   $h23arr[$lastH2] = array(); 
-                }
-                else
-                {
-                    $h3name = preg_replace("/<(.*?)>(.*?)<\/.*?>/","$2",$x);
-                   array_push($h23arr[$lastH2],$h3name);
-                }
-            }
-            echo '<script type="text/javascript" >';
-            echo 'menuArr='.json_encode($h23arr);
-            echo '</script>';
+            echo '<script type="text/javascript" src="/wp-content/plugins/'.__CLASS__.'/decorateAttrs.js"></script>';
             echo '<script type="text/javascript" src="/wp-content/plugins/'.__CLASS__.'/addMenu.js"></script>';
         }
     }
