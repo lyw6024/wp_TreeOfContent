@@ -9,12 +9,12 @@ function scrollDown()
     setTimeout("do_scrollDown()",1);
 }
 
-function Add_the_li_elem(prefix,h2content)
+function Add_the_li_elem(hrefCtx,h2content)
 {
 	var liElem = document.createElement("li");
 	var elem = document.createElement("a");
 	var att = document.createAttribute("href");
-	att.value="#"+prefix+"_"+h2content;
+	att.value="#"+hrefCtx;
 	elem.setAttributeNode(att);
 
     var scrollDownAction = document.createAttribute("onclick");
@@ -34,19 +34,24 @@ menu.setAttributeNode(clAtt);
 
 var ulElem = document.createElement("ul");
 
+h2idx=0;
+h3idx=0;
 for(h2 in menuArr)
 {
-	ulElem.appendChild(Add_the_li_elem("h2",h2));
+	ulElem.appendChild(Add_the_li_elem("i"+h2idx,h2));
 	if(menuArr[h2].length>0)
 	{
 		var sub_ulElem = document.createElement("ul");
 		
+        h3idx=0;
 		for(h3 in menuArr[h2])
 		{
-			sub_ulElem.appendChild(Add_the_li_elem("h3",menuArr[h2][h3]));
+			sub_ulElem.appendChild(Add_the_li_elem("i"+h2idx+"j"+h3idx,menuArr[h2][h3]));
+            h3idx+=1;
 		}
 		ulElem.appendChild(sub_ulElem);
 	}
+    h2idx+=1;
 }
 menu.appendChild(ulElem);
 
